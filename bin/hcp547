@@ -1,0 +1,65 @@
+#!/usr/bin/env bash
+set -e
+
+
+MYDIR=`dirname $0`
+MERGE_PY=${MYDIR}'/main.py'
+
+function usage() {
+    echo "
+Program: hcp547
+Version: 0.1
+Author: NIU-LAB 2019
+
+usage:   hcp547 -c CONFIG
+
+options: -c       hcp547 config file
+         -o       output directory
+         -h       show help message
+"
+}
+
+while getopts ":hw:c:o:" OPTION
+    do
+	case "${OPTION}" in
+	    h)
+		usage
+		exit 1
+		;;
+	    c)
+	    CONFIG=$OPTARG
+		;;
+	    o)
+	    OUTDIR="$OPTARG"
+		;;
+	esac
+	done
+
+
+if [ ! ${CONFIG} ];then
+    echo "ERROR:no config file."
+    exit 1
+fi
+
+if [ ! ${OUTDIR} ];then
+    echo "ERROR: no output directory."
+    exit 1
+fi
+
+if [ ! -d ${OUTDIR} ];then
+    mkdir ${OUTDIR}
+fi
+
+if [ ! -f ${CONFIG} ];then
+   echo "ERROR:${CONFIG} not exist."
+   exit 1
+fi
+
+MACROS_FILE=${OUTDIR}'/hcp547.macros'
+GPYFLOW_FILE=${MYDIR}'/hcp547.gpyflow.dir.zip'
+GPYFLOW_OUT_DIR=${OUTDIR}'/hcp547.outdir'
+
+echo "${MERGE_PY} ${CONFIG} ${MACROS_FILE}"
+${MERGE_PY} ${CONFIG} ${MACROS_FILE}
+echo "pyflow run -i ${MACROS_FILE} -o ${GPYFLOW_OUT_DIR} ${GPYFLOW_FILE}"
+pyflow run -i ${MACROS_FILE} -o ${GPYFLOW_OUT_DIR} --preview true ${GPYFLOW_FILE}
