@@ -11,7 +11,7 @@ Program: hcp547
 Version: 0.1
 Author: NIU-LAB 2019
 
-usage:   hcp547 -c CONFIG
+usage:   hcp547 -c CONFIG -o OUTDIR
 
 options: -c       hcp547 config file
          -o       output directory
