@@ -1,6 +1,10 @@
 #!/usr/bin/env bash
 set -e
 
+# build base image
+echo "build hcp547 base image ..."
+docker build -t "hcp547:base" ./docker/base
+
 VERSION=0.1
 IMG=`docker images | grep hcp547 | grep ${VERSION} | awk '{ print $3}'`
 
@@ -15,6 +19,6 @@ pyflow tar hcp547.gpyflow.dir
 echo "build hcp547.gpyflow.dir.zip ok"
 mv hcp547.gpyflow.dir.zip bin/
 
-# build image
+# build version image
 echo "build hcp547 v${VERSION} image ..."
 docker build -t "hcp547:${VERSION}" .

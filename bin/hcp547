@@ -11,15 +11,16 @@ Program: hcp547
 Version: 0.1
 Author: NIU-LAB 2019
 
-usage:   hcp547 -c CONFIG -o OUTDIR
+usage:   hcp547 [options] -c CONFIG -o OUTDIR
 
-options: -c       hcp547 config file
-         -o       output directory
+options: -c       required, hcp547 config file
+         -o       required, output directory
+         -p       optional, true or false, preview running commands
          -h       show help message
 "
 }
 
-while getopts ":hw:c:o:" OPTION
+while getopts ":hw:p:c:o:" OPTION
     do
 	case "${OPTION}" in
 	    h)
@@ -31,6 +32,9 @@ while getopts ":hw:c:o:" OPTION
 		;;
 	    o)
 	    OUTDIR="$OPTARG"
+		;;
+	    p)
+	    PREVIEW="$OPTARG"
 		;;
 	esac
 	done
@@ -55,11 +59,17 @@ if [ ! -f ${CONFIG} ];then
    exit 1
 fi
 
+if [ ${PREVIEW} ==  "true" ];then
+    PREVIEW_STR="--preview true"
+else
+    PREVIEW_STR="--preview false"
+fi
+
 MACROS_FILE=${OUTDIR}'/hcp547.macros'
 GPYFLOW_FILE=${MYDIR}'/hcp547.gpyflow.dir.zip'
 GPYFLOW_OUT_DIR=${OUTDIR}'/hcp547.outdir'
 
 echo "${MERGE_PY} ${CONFIG} ${MACROS_FILE}"
 ${MERGE_PY} ${CONFIG} ${MACROS_FILE}
-echo "pyflow run -i ${MACROS_FILE} -o ${GPYFLOW_OUT_DIR} ${GPYFLOW_FILE}"
-pyflow run -i ${MACROS_FILE} -o ${GPYFLOW_OUT_DIR} --preview true ${GPYFLOW_FILE}
+echo "pyflow run -i ${MACROS_FILE} -o ${GPYFLOW_OUT_DIR} ${PREVIEW_STR} ${GPYFLOW_FILE}"
+"pyflow run -i ${MACROS_FILE} -o ${GPYFLOW_OUT_DIR} ${PREVIEW_STR} ${GPYFLOW_FILE}"

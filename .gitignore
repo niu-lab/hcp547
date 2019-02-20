@@ -119,4 +119,6 @@ exclude.txt
 rsync_to_aliyun.sh
 rsync_to_onecat.sh
 rsync_to_qiuzhen.sh
+rsync_to_ubuntu.sh
+rsync_to_deepin.sh
 Dockerfile.dev

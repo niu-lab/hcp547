@@ -24,7 +24,11 @@ def read_macros(filename):
 def merged_macros(filename):
     default_macros = read_macros(DEFAULT_MACROS_FILE)
     input_macros = read_macros(filename)
-    input_macros.update(default_macros)
+    for default_macro in default_macros:
+        if default_macro not in input_macros:
+            input_macros[default_macro] = default_macros[default_macro]
+        if len(input_macros[default_macro].strip()) == 0:
+            input_macros[default_macro] = default_macros[default_macro]
     return input_macros
 
 

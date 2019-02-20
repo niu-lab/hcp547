@@ -1,4 +1,4 @@
-PICARD_JAVA_OPTS=-Xmx10g
+PICARD_JAVA_OPTS=-Xmx8g
 PICARD_SORTSAM_PARAMS=SORT_ORDER=coordinate
 PICARD_MARKDUPLICATES_PARAMS=VALIDATION_STRINGENCY=STRICT CREATE_INDEX=true REMOVE_DUPLICATES=true
 FASTQC_PARAMS=-f fastq
@@ -7,9 +7,9 @@ BWA_MEM_PARAMS=-t 8 -T 0
 VARDICT_PARAMS=-f 0.01 -r 4 -q 23 -z -F 0 -c 1 -S 2 -E 3 -th 10
 VAR2VCF_PARAMS=-M -f 0.01
 GATK_APPLYBQSR_PARAMS=
-GATK_JAVA_OPTS=-Xmx10g
+GATK_JAVA_OPTS=-Xmx8g
 GATK_RECALIBRATOR_PARAMS=-ip 150 --known-sites dbsnp_138.hg19.vcf --known-sites 1000G_phase1.indels.hg19.sites.vcf --known-sites Mills_and_1000G_gold_standard.indels.hg19.sites.vcf
 SNPSIFT_FILTER_STATEMENT=(DP >= 500) & (AF >= 0.01) & ((FILTER = 'PASS')|(FILTER='InDelLikely')) & ( ALT =~ '^[ATGC]') & (( GEN[0].GT = '0/1' ) & ( GEN[1].GT = '0/0' ))
 PICARD=/usr/local/picard/picard.jar
 SNPSIFT=/usr/local/snpEff/SnpSift.jar
-SNPSIFT_JAVA_OPTS=
+SNPSIFT_JAVA_OPTS=-Xmx8g
