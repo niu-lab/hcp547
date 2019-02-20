@@ -39,6 +39,7 @@ RUN apt-get update && apt-get install -y \
     curl \
     wget \
     pkg-config \
+    vim \
    # lib
     libbz2-dev \
     liblzma-dev \

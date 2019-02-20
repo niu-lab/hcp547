@@ -2,8 +2,11 @@
 set -e
 
 # build base image
+BASE=`docker images | grep hcp547 | grep base | awk '{ print $3}'`
+if [ ! ${IMG} ];then
 echo "build hcp547 base image ..."
 docker build -t "hcp547:base" ./docker/base
+fi
 
 VERSION=0.1
 IMG=`docker images | grep hcp547 | grep ${VERSION} | awk '{ print $3}'`

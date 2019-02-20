@@ -13,10 +13,10 @@ def read_macros(filename):
     with open(filename, "r") as file:
         for line in file:
             line = line.strip()
-            if macros_re.match(line):
-                splits = line.split("=")
-                key = splits[0]
-                value = "".join(splits[1:])
+            matched = macros_re.match(line)
+            if matched:
+                key = matched.group(1)
+                value = matched.group(2)
                 macros_dict[key] = value
     return macros_dict
 
