@@ -7,7 +7,7 @@ DEFAULT_MACROS_FILE = os.path.join(os.path.dirname(__file__), "default.macros")
 
 
 def read_macros(filename):
-    pattern = r'([A-Z0-9_]+)=(.*)'
+    pattern = r'([A-Z0-9_]+)=(.+)\n'
     macros_re = re.compile(pattern)
     macros_dict = dict()
     with open(filename, "r") as file:
